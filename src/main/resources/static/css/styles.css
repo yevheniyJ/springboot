@@ -1,0 +1,34 @@
+.background{
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+}
+
+.vertical-offset-100{
+    padding-top:100px;
+}
+
+a[name="header"]{
+    font-size : 150%;
+    color:black;
+}
+
+img{
+    min-height:50px;
+    height:50px;
+}
+
+div.thumbnail{
+    background-color: transparent !important;
+    border: transparent !important;
+}
+
+.centered {
+    text-align: center;
+}
+
+.container{
+    color: black !important;
+}
+

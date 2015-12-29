@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Boot</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.2.0/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link href="../static/css/styles.css"
+          th:href="@{css/styles.css}"
+          rel="stylesheet"
+          media="screen"/>
+</head>
+<body class="background"
+      style="background: url('../static/img/background.png') no-repeat center center fixed;"
+      th:style="'background: url(' + @{/img/background.png} + ') no-repeat center center fixed;'">
+<div class="container" th:if="${param.registration}">
+    <div class="row vertical-offset-100">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Registration form</h3>
+                </div>
+                <div class="panel-body">
+                    <form th:action="@{/registration}" method="post">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Username" name="username" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Password" name="password" type="password" value=""/>
+                            </div>
+                            <div class="form-group" th:if="${param.error}">
+                                <div class="alert alert-danger" role="alert">
+                                    User already exist
+                                </div>
+                            </div>
+                            <div class="form-group" th:if="${param.success}">
+                                <div class="alert alert-success" role="alert">
+                                    You successfully registered
+                                </div>
+                            </div>
+                            <div class="form-group" th:if="${param.errorServer}">
+                                <div class="alert alert-danger" role="alert">
+                                    Server error
+                                </div>
+                            </div>
+                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Sigin"/>
+                            <input onclick="location.href='/login';" class="btn btn-lg btn-success btn-block" type="button" value="Login"/>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" th:unless="${param.registration}">
+    <div class="row vertical-offset-100">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Please sign in</h3>
+                </div>
+                <div class="panel-body">
+                    <form th:action="@{/login}" method="post">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Username" name="username" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Password" name="password" type="password" value=""/>
+                            </div>
+                            <div class="form-group" th:if="${param.error}">
+                                <div class="alert alert-danger" role="alert">
+                                    Invalid username and password
+                                </div>
+                            </div>
+                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Login"/>
+                            <input onclick="location.href='/login?registration';" class="btn btn-lg btn-success btn-block" type="button" value="Registration"/>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

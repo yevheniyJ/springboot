@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring Boot</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.2.0/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+    <link href="../static/css/styles.css"
+          th:href="@{css/styles.css}"
+          rel="stylesheet"
+          media="screen"/>
+</head>
+<body class="background"
+      style="background: url('../static/img/background.png') no-repeat center center fixed;"
+      th:style="'background: url(' + @{/img/background.png} + ') no-repeat center center fixed;'">
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a name="header" class="navbar-brand" href="#">
+                Logged as :
+                <span sec:authentication="name"></span>
+                Role :
+                <span sec:authorize="hasRole('ROLE_ADMIN')">admin</span>
+                <span sec:authorize="hasRole('ROLE_USER')">user</span>
+            </a>
+        </div>
+        <ul class="navbar-header pull-right">
+            <a name="header" href="profile" class="navbar-brand"><span class="glyphicon glyphicon-user"></span> Profile</a>
+            <a name="header" href="logout" class="navbar-brand"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <h2 class="centered">In this project I used:</h2>
+    <div class="row">
+        <div class="col-xs-6 col-md-3">
+            <div class="thumbnail">
+                <a href="http://projects.spring.io/spring-boot/" target="_blank">
+                    <img alt="100%x200" src="../static/img/spring_boot.gif" th:src="@{img/spring_boot.gif}"/>
+                </a>
+                <div class="caption">
+                    <h3>Spring Boot</h3>
+                    <p>Takes an opinionated view of building production-ready Spring applications.
+                        Spring Boot favors convention over configuration and is designed to get you up and running as quickly as possible.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <div class="thumbnail">
+                <a href="http://projects.spring.io/spring-framework/" target="_blank">
+                    <img alt="100%x200" src="../static/img/spring_framework.gif" th:src="@{img/spring_framework.gif}"/>
+                </a>
+                <div class="caption">
+                    <h3>Spring Framework</h3>
+                    <p>Core support for dependency injection, transaction management, web applications, data access, messaging, testing and more.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <div class="thumbnail">
+                <a href="http://projects.spring.io/spring-security/" target="_blank">
+                    <img alt="100%x200" src="../static/img/spring_security.gif" th:src="@{img/spring_security.gif}"/>
+                </a>
+                <div class="caption">
+                    <h3>Spring Security</h3>
+                    <p>Spring Security is a powerful and highly customizable authentication and access-control framework.
+                        It is the de-facto standard for securing Spring-based applications.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <div class="thumbnail">
+                <a href="http://www.thymeleaf.org/" target="_blank">
+                    <img alt="100%x200" src="../static/img/thymeleaf.gif" th:src="@{img/thymeleaf.gif}"/>
+                </a>
+                <div class="caption">
+                    <h3>Thymeleaf</h3>
+                    <p>Thymeleaf is a Java library.
+                        It is a template engine capable of processing and generating HTML, XML, JavaScript, CSS and text, and can work both in web and non-web environments.
+                        It is better suited for serving the view layer of web applications, but it can process files in many formats, even in offline environments.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.1/jquery.min.js"
+        th:src="@{/webjars/jquery/2.1.1/jquery.min.js}"></script>
+<script src="http://cdn.jsdelivr.net/webjars/bootstrap/3.2.0/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/3.2.0/js/bootstrap.min.js}"></script>
+<script src="../static/js/home.js" th:src="@{js/home.js}"></script>
+</html>
