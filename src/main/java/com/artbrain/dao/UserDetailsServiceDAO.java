@@ -21,6 +21,9 @@ public class UserDetailsServiceDAO implements UserDetailsService {
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
+  @Autowired
+  private Mapper mapper;
+
   private static final String ROLE_PREFIX = "ROLE_";
 
   @Override
@@ -95,15 +98,15 @@ public class UserDetailsServiceDAO implements UserDetailsService {
   }
 
   public void saveUser(User user) throws Exception{
-    jdbcTemplate.update(Queries.INSERT_NEW_USER, new Object[]{user.getUsername(), user.getPassword(), ROLE.USER.toString()});
+    jdbcTemplate.update(Queries.INSERT_NEW_USER, user.getUsername(), user.getPassword(), ROLE.USER.toString());
   }
 
   public void deleteUser(String username) throws Exception{
-    jdbcTemplate.update(Queries.DELETE_USER_BY_USERNAME, new Object[]{username});
+    jdbcTemplate.update(Queries.DELETE_USER_BY_USERNAME, username);
   }
 
   public User loadUserEntityByUsername(String username){
-    List<User> users = jdbcTemplate.query(Queries.LOAD_USER_BY_USERNAME, new Object[]{username}, (rs, rowNum) -> Mapper.mapUser(rs, rowNum));
+    List<User> users = jdbcTemplate.query(Queries.LOAD_USER_BY_USERNAME, mapper::mapUser, username);
     if(users == null || users.size() < 1){
       return null;
     }else{
@@ -112,11 +115,11 @@ public class UserDetailsServiceDAO implements UserDetailsService {
   }
 
   public List<User> loadAllUsers() throws Exception{
-    return jdbcTemplate.query(Queries.LOAD_ALL_USERS, (rs, rowNum) -> Mapper.mapUser(rs, rowNum));
+    return jdbcTemplate.query(Queries.LOAD_ALL_USERS, mapper::mapUser);
   }
 
   public void updateUser(User user) throws Exception{
-    jdbcTemplate.update(Queries.UPDATE_USER_BY_USERNAME, new Object[]{user.getPassword(), user.getRole(), user.getUsername()});
+    jdbcTemplate.update(Queries.UPDATE_USER_BY_USERNAME, user.getPassword(), user.getRole(), user.getUsername());
   }
 
 }
