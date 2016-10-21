@@ -12,9 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+
+import static java.util.Collections.singletonList;
 
 public class UserDetailsServiceDAO implements UserDetailsService {
 
@@ -36,9 +36,7 @@ public class UserDetailsServiceDAO implements UserDetailsService {
     return new UserDetails() {
       @Override
       public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> auths = new ArrayList<>();
-        auths.add(new SimpleGrantedAuthority(user.getRole()));
-        return auths;
+        return singletonList(new SimpleGrantedAuthority(user.getRole()));
       }
 
       @Override
@@ -97,28 +95,28 @@ public class UserDetailsServiceDAO implements UserDetailsService {
 
   }
 
-  public void saveUser(User user) throws Exception{
+  public void saveUser(User user) throws Exception {
     jdbcTemplate.update(Queries.INSERT_NEW_USER, user.getUsername(), user.getPassword(), ROLE.USER.toString());
   }
 
-  public void deleteUser(String username) throws Exception{
+  public void deleteUser(String username) throws Exception {
     jdbcTemplate.update(Queries.DELETE_USER_BY_USERNAME, username);
   }
 
-  public User loadUserEntityByUsername(String username){
+  public User loadUserEntityByUsername(String username) {
     List<User> users = jdbcTemplate.query(Queries.LOAD_USER_BY_USERNAME, mapper::mapUser, username);
-    if(users == null || users.size() < 1){
+    if (users == null || users.size() < 1) {
       return null;
-    }else{
+    } else {
       return users.get(0);
     }
   }
 
-  public List<User> loadAllUsers() throws Exception{
+  public List<User> loadAllUsers() throws Exception {
     return jdbcTemplate.query(Queries.LOAD_ALL_USERS, mapper::mapUser);
   }
 
-  public void updateUser(User user) throws Exception{
+  public void updateUser(User user) throws Exception {
     jdbcTemplate.update(Queries.UPDATE_USER_BY_USERNAME, user.getPassword(), user.getRole(), user.getUsername());
   }
 
