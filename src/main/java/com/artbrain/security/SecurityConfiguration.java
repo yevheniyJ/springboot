@@ -19,9 +19,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
       http
-          //static resources configuration
           .authorizeRequests()
+            //static resources configuration
             .antMatchers("/resources/**", "/webjars/**", "/img/**").permitAll()
+            //login page and registration end-point
+            .antMatchers("/login", "/registration").permitAll()
+            //all other requests
             .anyRequest().authenticated()
             .and()
           // login form configuration
