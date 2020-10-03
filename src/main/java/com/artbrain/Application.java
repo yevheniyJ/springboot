@@ -3,7 +3,6 @@ package com.artbrain;
 import com.artbrain.dao.UserDetailsServiceDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.sql.DataSource;
 
 @SpringBootApplication
-@EnableAutoConfiguration
 public class Application implements WebMvcConfigurer {
 
   @Autowired
@@ -40,7 +38,7 @@ public class Application implements WebMvcConfigurer {
     registry.addViewController("/error").setViewName("error");
     registry.addViewController("/profile").setViewName("profile");
   }
-  
+
   @Bean
   public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer() {
       return (factory) -> factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/error"), new ErrorPage(HttpStatus.FORBIDDEN, "/error"));
